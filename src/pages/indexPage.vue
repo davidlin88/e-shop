@@ -3,11 +3,15 @@
     <div class="left">
       <div class="left-top">
         <p class="left-head">全部产品</p>
+        <!-- 循环产品列表数据 -->
         <div v-for="product in productList">
           <h3>{{product.title}}</h3>
           <ul>
             <li v-for="item in product.list">
-              <router-link :to="item.url">{{item.name}}</router-link>
+              <!-- 站内跳转 -->
+              <router-link :to="item.url" v-if="item.isInsite">{{item.name}}</router-link>
+              <!-- 站外跳转 -->
+              <a :href="item.url" v-if="!item.isInsite">{{item.name}}</a>
               <span v-if="item.isHot" class="hot">HOT</span>
             </li>
           </ul>
@@ -17,9 +21,9 @@
       <div class="left-bottom">
         <p class="left-head">最新消息</p>
         <ul class="news">
-          <li v-for="news in newsList">
-            <a :href="news.url">
-              {{news.title}}
+          <li v-for="item in newsList">
+            <a :href="item.url">
+              {{item.title}}
             </a>
           </li>
         </ul>
@@ -27,12 +31,13 @@
     </div>
     <div class="right">
       <sliderShow></sliderShow>
-      <div class="right-bottom">
-        <div class="boardList p-left">
-          <img src="../assets/images/1.png" height="100" width="100">
-          <h2>开放产品</h2>
-          <p>开放产品是blabla</p>
-          <button>立即购买</button>
+      <div class="board-item"  v-for="item in boardList">
+        <div class="board-item-inner">
+          <h2>{{item.title}}</h2>
+          <p>{{item.description}}</p>
+          <router-link :to="item.toKey">
+            <button>立即购买</button>
+          </router-link>
         </div>
       </div>
     </div>
@@ -47,6 +52,7 @@ export default {
       productList: {
         pc: {
           title: 'PC产品',
+          isInsite: true,
           list: [
             {
               name: '数据统计',
@@ -63,12 +69,13 @@ export default {
             },
             {
               name: '广告发布',
-              url: 'mailto:779091821@qq.com'
+              url: '/detail/publish'
             }
           ]
         },
         app: {
           title: '手机应用类',
+          isInsite: false,
           last: true,
           list: [
             {
@@ -94,27 +101,27 @@ export default {
       newsList: [],
       boardList: [
         {
-          titel: '开放产品',
+          title: '开放产品',
           description: '开放产品是一款blabla...',
-          img: '../assets/images/1.png',
+          src: require('../assets/images/1.png'),
           toKey: '/detail/count'
         },
         {
-          titel: '品牌营销',
+          title: '品牌营销',
           description: '品牌营销帮助你的产品更好地找到定位',
-          img: '../assets/images/3.png',
+          src: require('../assets/images/3.png'),
           toKey: '/detail/forecast'
         },
         {
-          titel: '使命必达',
+          title: '使命必达',
           description: '使命必达快速迭代永远保持最前端的速度',
-          img: '../assets/images/2.png',
+          src: require('../assets/images/2.png'),
           toKey: '/detail/analysis'
         },
         {
-          titel: '勇攀高峰',
+          title: '勇攀高峰',
           description: '帮你勇闯高峰，到达事业的顶峰',
-          img: '../assets/images/4.png',
+          src: require('../assets/images/4.png'),
           toKey: '/detail/publish'
         }
       ]
@@ -123,41 +130,45 @@ export default {
   components: {
     sliderShow
   },
-  create () {
+  created () {
     this.$http.get('/api/news').then(response => {
-      console.log(response.body.data)
+      console.log('newsList调用成功')
       this.newsList = response.body.data
-    }, response => {
-      console.log(response)
     })
   }
 }
 </script>
 
 <style>
-.right-bottom {
-  overflow: hidden;
+.board-item {
+  background-color: #fff;
+  width: 440px;
+  height: 168px;
+  padding: 20px;
+}
+.board-item-inner {
+  padding-left: 125px;
+  background: url(../assets/images/1.png) no-repeat left center;
   margin-top: 15px;
 }
-.boardList {
+.board-item-inner {
   width: 440px;
   height: 170px;
-  background-color: #fff;
   float: left;
   padding: 20px;
   position: relative;
 }
-.boardList h2 {
+.board-item-inner h2 {
   position: absolute;
   left: 140px;
   top: 20px;
 }
-.boardList p {
+.board-item-inner p {
   position: absolute;
   left: 140px;
   top: 53px;
 }
-.boardList button {
+.board-item-inner button {
   position: absolute;
   left: 140px;
   top: 90px;
@@ -176,8 +187,6 @@ button:focus {
 }
 .p-right {
   margin-bottom: 20px;
-}
-.boardList img {
 }
 .left {
   width: 300px;
@@ -230,7 +239,7 @@ h3 {
   height: 1px;
 }
 .news {
-  margin-top: 34px;
+  margin-top: 20px;
 }
 .left a {
   display: inline-block;

@@ -21,7 +21,6 @@
 
 <script>
 export default {
-  prop: ['title', 'src'],
   data () {
     return {
     }
