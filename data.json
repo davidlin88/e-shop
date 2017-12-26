@@ -1,0 +1,24 @@
+{
+  "getNewsList": [
+    {
+      "id": 1,
+      "title": "新闻条目1新闻条目1新闻条目1新闻条目1",
+      "url": "https://www.baidu.com"
+    },
+    {
+      "id": 2,
+      "title": "新闻条目2新闻条目2新闻条目2新闻条目2",
+      "url": "https://www.baidu.com"
+    },
+    {
+      "id": 3,
+      "title": "新闻条3新闻条3新闻条3",
+      "url": "https://www.baidu.com"
+    },
+    {
+      "id": 4,
+      "title": "新闻条4广告发布",
+      "url": "https://www.baidu.com"
+    }
+  ]
+}
