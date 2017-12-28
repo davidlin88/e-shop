@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import indexPage from '../pages/indexPage'
-import analysis from '../pages/analysis'
-import forecast from '../pages/forecast'
-import count from '../pages/count'
-import publish from '../pages/publish'
+import analysis from '../pages/detail/analysis'
+import forecast from '../pages/detail/forecast'
+import count from '../pages/detail/count'
+import publish from '../pages/detail/publish'
 
 Vue.use(Router)
 

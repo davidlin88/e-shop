@@ -9,9 +9,9 @@
           <ul>
             <li v-for="item in product.list">
               <!-- 站内跳转 -->
-              <router-link :to="item.url" v-if="item.isInsite">{{item.name}}</router-link>
+              <router-link :to="item.url" v-if="product.isInsite">{{item.name}}</router-link>
               <!-- 站外跳转 -->
-              <a :href="item.url" v-if="!item.isInsite">{{item.name}}</a>
+              <a :href="item.url" v-if="!product.isInsite">{{item.name}}</a>
               <span v-if="item.isHot" class="hot">HOT</span>
             </li>
           </ul>
@@ -31,8 +31,11 @@
     </div>
     <div class="right">
       <sliderShow></sliderShow>
-      <div class="board-item"  v-for="item in boardList">
-        <div class="board-item-inner">
+      <div 
+      v-for="(item,index) in boardList"
+      class="board-item"
+      :class="[{'line-last': index % 2 !== 0},'board-item-' + item.id]" >
+        <div class="board-item-inner" :class="'board-item-inner-' + item.id">
           <h2>{{item.title}}</h2>
           <p>{{item.description}}</p>
           <router-link :to="item.toKey">
@@ -47,6 +50,15 @@
 <script>
 import sliderShow from '../components/sliderShow'
 export default {
+  components: {
+    sliderShow
+  },
+  created () {
+    this.$http.get('/api/news').then(response => {
+      console.log('newsList调用成功')
+      this.newsList = response.body.data
+    })
+  },
   data () {
     return {
       productList: {
@@ -102,76 +114,84 @@ export default {
       boardList: [
         {
           title: '开放产品',
-          description: '开放产品是一款blabla...',
+          description: '开放产品是一款blablablabla...',
           src: require('../assets/images/1.png'),
-          toKey: '/detail/count'
+          toKey: '/detail/count',
+          id: 'earth'
         },
         {
           title: '品牌营销',
           description: '品牌营销帮助你的产品更好地找到定位',
           src: require('../assets/images/3.png'),
-          toKey: '/detail/forecast'
+          toKey: '/detail/forecast',
+          id: 'loud'
         },
         {
           title: '使命必达',
           description: '使命必达快速迭代永远保持最前端的速度',
           src: require('../assets/images/2.png'),
-          toKey: '/detail/analysis'
+          toKey: '/detail/analysis',
+          id: 'car'
         },
         {
           title: '勇攀高峰',
           description: '帮你勇闯高峰，到达事业的顶峰',
           src: require('../assets/images/4.png'),
-          toKey: '/detail/publish'
+          toKey: '/detail/publish',
+          id: 'hill'
         }
       ]
     }
-  },
-  components: {
-    sliderShow
-  },
-  created () {
-    this.$http.get('/api/news').then(response => {
-      console.log('newsList调用成功')
-      this.newsList = response.body.data
-    })
   }
 }
 </script>
 
 <style>
+
+.board-item-inner-earth {
+  background: url(../assets/images/1.png) no-repeat;
+}
+.board-item-inner-loud {
+  background: url(../assets/images/3.png) no-repeat;
+}
+.board-item-inner-car {
+  background: url(../assets/images/2.png) no-repeat;
+}
+.board-item-inner-hill {
+  background: url(../assets/images/4.png) no-repeat;
+}
+
 .board-item {
-  background-color: #fff;
   width: 440px;
   height: 168px;
   padding: 20px;
+  background-color: #fff;
+  float: left;
+  margin-right: 20px;
+  margin-top: 20px;
+}
+.line-last {
+  margin-right: 0;
 }
 .board-item-inner {
   padding-left: 125px;
-  background: url(../assets/images/1.png) no-repeat left center;
-  margin-top: 15px;
-}
-.board-item-inner {
-  width: 440px;
-  height: 170px;
-  float: left;
-  padding: 20px;
+  width: 400px;
+  height: 125px;
   position: relative;
 }
 .board-item-inner h2 {
   position: absolute;
-  left: 140px;
-  top: 20px;
+  left: 130px;
 }
 .board-item-inner p {
   position: absolute;
-  left: 140px;
-  top: 53px;
+  left: 130px;
+  top: 33px;
 }
 .board-item-inner button {
   position: absolute;
-  left: 140px;
-  top: 90px;
+  left: 130px;
+  top: 70px;
   background-color: #4fc08d;
   color: #fff;
   padding: 10px 20px;
@@ -214,7 +234,7 @@ button:focus {
   float: left;
 }
 .left-bottom {
-  min-height: 491px;
+  min-height: 506px;
   margin-top: 0;
 }
 .left ul {
