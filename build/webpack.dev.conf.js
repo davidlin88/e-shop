@@ -13,6 +13,7 @@ const express = require('express')
 const app = express()
 var appData = require('../data.json')
 var news = appData.getNewsList
+var login = appData.login
 var apiRoutes = express.Router()
 app.use('/api',apiRoutes)
 
@@ -36,8 +37,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     port: PORT || config.dev.port,
     open: config.dev.autoOpenBrowser,
     overlay: config.dev.errorOverlay
-      ? { warnings: false, errors: true }
-      : false,
+    ? { warnings: false, errors: true }
+    : false,
     publicPath: config.dev.assetsPublicPath,
     proxy: config.dev.proxyTable,
     quiet: true, // necessary for FriendlyErrorsPlugin
@@ -52,13 +53,19 @@ const devWebpackConfig = merge(baseWebpackConfig, {
           data: news
         })
       })
+      app.get('/api/login', (req, res) => {
+        res.json({
+          code: 0,
+          data: login
+        })
+      })
     }
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': require('../config/dev.env')
-    }),
-    new webpack.HotModuleReplacementPlugin(),
+  new webpack.DefinePlugin({
+    'process.env': require('../config/dev.env')
+  }),
+  new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
     new webpack.NoEmitOnErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
@@ -67,8 +74,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       template: 'index.html',
       inject: true
     }),
-  ]
-})
+    ]
+  })
 
 module.exports = new Promise((resolve, reject) => {
   portfinder.basePort = process.env.PORT || config.dev.port

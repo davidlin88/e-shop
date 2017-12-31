@@ -54,9 +54,9 @@ export default {
     sliderShow
   },
   created () {
-    this.$http.get('/api/news').then(response => {
+    this.$http.get('/api/news').then(res => {
       console.log('newsList调用成功')
-      this.newsList = response.body.data
+      this.newsList = res.body.data
     })
   },
   data () {
@@ -196,7 +196,6 @@ export default {
   color: #fff;
   padding: 10px 20px;
   cursor: pointer;
-  border: none;
 }
 button:focus {
   outline: none;
