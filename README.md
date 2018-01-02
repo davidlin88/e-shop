@@ -22,6 +22,7 @@ console.log(objVue[arg])   // false;
 * `props`:从父组件获取的参数
 * `transition: all .5s ease`:ease是动画逐渐变慢,缓和
 * `transform: translateY(-500px)`坐标和`box-shadow`一样,右下为xy的正方向
+* `router-link`标签可通过增加`tag="li"`修改默认的a标签为特定标签
 
 ## 这是个啥?
 * transition动画里,v-if和v-show为什么会有表现上的差异?

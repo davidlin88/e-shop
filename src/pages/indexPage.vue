@@ -265,7 +265,6 @@ h3 {
   white-space:nowrap;
   overflow: hidden;
   text-overflow:ellipsis;
-  text-decoration: none;
   color: inherit;
 }
 .left-bottom a {

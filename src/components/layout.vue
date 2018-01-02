@@ -112,6 +112,9 @@ export default {
   text-align: center;
   margin-top: 20px;
 }
+a {
+  text-decoration: none;
+}
 * {
   box-sizing: border-box;
 }

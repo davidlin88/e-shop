@@ -4,7 +4,7 @@
       <img src="../../assets/images/1.png" height="100" width="100" alt="">
       <ul class="nav-item">
         <li v-for="item in navItem">
-          <router-link :to="item.toKey">{{item.name}}</router-link>
+          <router-link :to="item.toKey" :tag="li">{{item.name}}</router-link>
         </li>
       </ul>
     </div>
