@@ -18,7 +18,7 @@ console.log(objVue.arg)    // undefined
 console.log(objVue[arg])   // false;
 ```
 * vue里dom元素的打开和关闭方式都是以开关的形式存在的(v-if/v-show),要会转变思想
-* `this.%emit('on-close')`:将子组件的on-close事件发射给父组件
+* `this.$emit('on-close')`:将子组件的on-close事件发射给父组件
 * `props`:从父组件获取的参数
 * `transition: all .5s ease`:ease是动画逐渐变慢,缓和
 * `transform: translateY(-500px)`坐标和`box-shadow`一样,右下为xy的正方向
