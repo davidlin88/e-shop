@@ -5,7 +5,6 @@
 ## 小鱼干
 * `text-overflow:ellipsis`+`overflow:hidden`+`white-space:nowrap`:超出文本省略
 * `a`标签的颜色要另定,不会继承body
-* 是created不是creat啊啊啊啊啊
 * v-bind时给src等赋值方法:data内定义时写作`src: require('../images/1.png')`
 * vue :class时,拼接字符串:`:class="'board-item-' + item.id"`,双引号内,字符串放在单引号里
 
@@ -30,6 +29,7 @@ console.log(objVue[arg])   // false;
 > Object[property]是js获取对象属性值的形式,另可写作`Object.property`,但写作中括号形式时可以传递动态参数
 * `onSuccessLog`里的data哪来的?怎么传来的
 * dialog.vue里的`<slot>empty</slot>`有什么用?
+> 没内容时的插值
 * `userFlag`和`passwordFlag`是个啥?
 > 一种小技巧,可以让用户没有编辑输入框时,校验结果不显示的技巧
 
